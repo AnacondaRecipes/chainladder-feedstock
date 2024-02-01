@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/chainladder-{{ version }}.tar.gz
-  sha256: 346c8a71d5d7188b22203da9a49ff35f93e00129bf17b2ea2f45ccc7bd5588ac
+  sha256: 56eb8bd44d46ca48680122f85d96dba6f33d7a82393a6468786b061f266161dc
 
 build:
   number: 0
