@@ -44,9 +44,16 @@ test:
 about:
   home: https://github.com/casact/chainladder-python
   summary: Chainladder Package - P&C Loss Reserving package
+  description: |
+    The chainladder package was built to be able to handle all of your actuarial needs in python. It consists of
+    popular actuarial tools, such as triangle data manipulation, link ratios calculation, and IBNR estimates with both
+    deterministic and stochastic models.
   license: MPL-2.0
+  license_family: MPL
   # License file manually packaged. See https://github.com/casact/chainladder-python/pull/102
   license_file: LICENSE
+  doc_url: https://chainladder-python.readthedocs.io
+  dev_url: https://github.com/casact/chainladder-python
 
 extra:
   recipe-maintainers:
