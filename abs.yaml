@@ -1,0 +1,5 @@
+upload_channels:
+  - sfe1ed40
+
+channels:
+  - http://staging.continuum.io/prefect/fs/sparse-feedstock/pr3/ab2b7c4
