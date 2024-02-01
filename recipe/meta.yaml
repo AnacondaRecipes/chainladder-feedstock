@@ -1,6 +1,5 @@
 {% set name = "chainladder" %}
-{% set version = "0.8.14" %}
-
+{% set version = "0.8.18" %}
 
 package:
   name: {{ name|lower }}
@@ -13,13 +12,14 @@ source:
 build:
   number: 0
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
-
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - pip
-    - python >=3.5
+    - python
+    - setuptools
+    - wheel
   run:
     - joblib
     - numpy >=1.12.0
