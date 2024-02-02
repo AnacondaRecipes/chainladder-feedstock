@@ -49,7 +49,7 @@ about:
     popular actuarial tools, such as triangle data manipulation, link ratios calculation, and IBNR estimates with both
     deterministic and stochastic models.
   license: MPL-2.0
-  license_family: MPL
+  license_family: MOZILLA
   # License file manually packaged. See https://github.com/casact/chainladder-python/pull/102
   license_file: LICENSE
   doc_url: https://chainladder-python.readthedocs.io
