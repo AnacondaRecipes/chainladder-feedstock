@@ -28,7 +28,7 @@ requirements:
     - pandas >=0.23
     - scikit-learn >=0.23
     - scipy
-    - matplotlib
+    - matplotlib-base
     - numba >0.54
     - sparse >=0.9
     - dill
