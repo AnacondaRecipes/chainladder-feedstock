@@ -6,8 +6,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/chainladder-{{ version }}.tar.gz
-  sha256: 56eb8bd44d46ca48680122f85d96dba6f33d7a82393a6468786b061f266161dc
+  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/chainladder-{{ version }}.tar.gz
+    sha256: 56eb8bd44d46ca48680122f85d96dba6f33d7a82393a6468786b061f266161dc
+  - git_url: https://github.com/casact/chainladder-python
+    git_rev: v0.8.18
+    folder: github
 
 build:
   number: 0
@@ -35,13 +38,31 @@ requirements:
     - patsy
 
 test:
+  source_files:
+    - github/chainladder/methods/tests
+    - github/chainladder/core/tests
+    - github/chainladder/adjustments/tests
+    - github/chainladder/utils/tests
+    - github/chainladder/workflow/tests
+    - github/chainladder/tails/tests
+    - github/conftest.py
   imports:
     - chainladder
     - chainladder.core
   commands:
     - pip check
+    - pytest github/chainladder/methods/tests
+    # skipping test to run in jupyter notebook
+    - pytest github/chainladder/core/tests -k "not test_heatmap_render"
+    - pytest github/chainladder/adjustments/tests
+    - pytest github/chainladder/utils/tests
+    - pytest github/chainladder/workflow/tests
+    - pytest github/chainladder/tails/tests
   requires:
     - pip
+    - pytest
+    - lxml
+    - jinja2
 
 about:
   home: https://github.com/casact/chainladder-python
