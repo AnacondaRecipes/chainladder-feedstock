@@ -52,7 +52,8 @@ test:
     - pip check
     - pytest chainladder/methods/tests
     # skipping test to run in jupyter notebook
-    - pytest chainladder/core/tests -k "not test_heatmap_render"
+    - pytest chainladder/core/tests -k "not test_heatmap_render"  # [not win]
+    - pytest chainladder/core/tests -k "not test_heatmap_render" --ignore="chainladder/core/tests/test_triangle.py"  # [win]
     - pytest chainladder/adjustments/tests
     - pytest chainladder/utils/tests
     - pytest chainladder/workflow/tests --ignore="chainladder/workflow/tests/test_voting.py" --ignore="chainladder/workflow/tests/test_predict.py"
@@ -62,7 +63,7 @@ test:
     - pytest
     - lxml
     - jinja2
-    - polars
+    - polars  # [not win]
 
 about:
   home: https://github.com/casact/chainladder-python
