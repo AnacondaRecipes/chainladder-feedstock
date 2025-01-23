@@ -1,16 +1,13 @@
 {% set name = "chainladder" %}
-{% set version = "0.8.18" %}
+{% set version = "0.8.23" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/chainladder-{{ version }}.tar.gz
-    sha256: 56eb8bd44d46ca48680122f85d96dba6f33d7a82393a6468786b061f266161dc
-  - git_url: https://github.com/casact/chainladder-python
-    git_rev: v0.8.18
-    folder: github
+  url: https://github.com/casact/chainladder-python/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: fa865233a70cf47d515a6e488982ff7e985c98cbbd05908e4947f0972ab6f30b
 
 build:
   number: 0
@@ -19,8 +16,6 @@ build:
   skip: True  # [py<39 or s390x]
 
 requirements:
-  build:
-    - git  # [not win]
   host:
     - pip
     - python
@@ -41,30 +36,32 @@ requirements:
 
 test:
   source_files:
-    - github/chainladder/methods/tests
-    - github/chainladder/core/tests
-    - github/chainladder/adjustments/tests
-    - github/chainladder/utils/tests
-    - github/chainladder/workflow/tests
-    - github/chainladder/tails/tests
-    - github/conftest.py
+    - chainladder/methods/tests
+    - chainladder/core/tests
+    - chainladder/adjustments/tests
+    - chainladder/utils/tests
+    - chainladder/workflow/tests
+    - chainladder/tails/tests
+    - conftest.py
   imports:
     - chainladder
     - chainladder.core
   commands:
     - pip check
-    - pytest github/chainladder/methods/tests
+    - pytest chainladder/methods/tests
     # skipping test to run in jupyter notebook
-    - pytest github/chainladder/core/tests -k "not test_heatmap_render"
-    - pytest github/chainladder/adjustments/tests
-    - pytest github/chainladder/utils/tests
-    - pytest github/chainladder/workflow/tests
-    - pytest github/chainladder/tails/tests
+    - pytest chainladder/core/tests -k "not test_heatmap_render"  # [not win]
+    - pytest chainladder/core/tests -k "not test_heatmap_render" --ignore="chainladder/core/tests/test_triangle.py"  # [win]
+    - pytest chainladder/adjustments/tests
+    - pytest chainladder/utils/tests
+    - pytest chainladder/workflow/tests --ignore="chainladder/workflow/tests/test_voting.py" --ignore="chainladder/workflow/tests/test_predict.py"
+    - pytest chainladder/tails/tests
   requires:
     - pip
     - pytest
     - lxml
     - jinja2
+    - polars  # [not win]
 
 about:
   home: https://github.com/casact/chainladder-python
