@@ -1,19 +1,17 @@
 {% set name = "chainladder" %}
-{% set version = "0.8.23" %}
+{% set version = "0.8.24" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/casact/chainladder-python/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: fa865233a70cf47d515a6e488982ff7e985c98cbbd05908e4947f0972ab6f30b
+  url: https://github.com/casact/{{ name }}-python/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 8cc5fb29e81ff0a47d94a5d5d3d42e742aef6966cb52897a8b5e13169531a738
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  # skip py39 because of missing sparse
-  skip: True  # [py<39 or s390x]
 
 requirements:
   host:
@@ -22,15 +20,18 @@ requirements:
     - setuptools
     - wheel
   run:
-    - joblib
     - python
-    - numpy >=1.12
-    - pandas >=0.23
-    - scikit-learn >=0.23
+    - joblib
     - scipy
-    - matplotlib-base
+    # https://github.com/casact/chainladder-python/blob/238db2237081f387c3ce7c19ada7aae434e77e03/docs/library/releases.md?plain=1#L65
+    - numpy >=2
+    - pandas >=2.0
+    - scikit-learn >=1.4.2
     - numba >0.54
-    - sparse >=0.9
+    # Upper bound added due to issue below (_slicing.py is removed in 0.16)
+    # ModuleNotFoundError: No module named 'sparse._slicing'
+    - sparse >=0.9,<0.16
+    - matplotlib-base
     - dill
     - patsy
 
@@ -72,7 +73,6 @@ about:
     deterministic and stochastic models.
   license: MPL-2.0
   license_family: MOZILLA
-  # License file manually packaged. See https://github.com/casact/chainladder-python/pull/102
   license_file: LICENSE
   doc_url: https://chainladder-python.readthedocs.io
   dev_url: https://github.com/casact/chainladder-python
